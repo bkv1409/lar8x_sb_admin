@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminRoleController;
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SBAdminController;
 use Illuminate\Support\Facades\Route;
@@ -40,3 +42,13 @@ Route::group(['prefix' => '/sb-admin-tmp'], function () {
     Route::get('/error500', [SBAdminController::class, 'error500'])->name('sb-admin-tmp.error500');
 });
 
+Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function() {
+    Route::get('/', function () {
+        return redirect()->route('login');
+    })->name('admin.redirect');
+
+
+});
+
+Route::resource('roles', AdminRoleController::class);
+Route::resource('users', AdminUserController::class);
