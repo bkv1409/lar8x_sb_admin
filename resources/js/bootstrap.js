@@ -40,3 +40,28 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+/*window.onload = function () {
+    const userTable = document.getElementById('userTable');
+    if (userTable) {
+        new DataTable("#userTable", {
+            searchable: true,
+            fixedHeight: true,
+        });
+    }
+}*/
+
+window.addEventListener('DOMContentLoaded', event => {
+    // Simple-DataTables
+    // https://github.com/fiduswriter/Simple-DataTables/wiki
+
+    const userTable = document.getElementById('userTable');
+    if (userTable) {
+        let userDataTable = new simpleDatatables.DataTable(userTable);
+        userDataTable.on('datatable.perpage', function(perpage) {
+            console.log('per page')
+        });
+        userDataTable.on('datatable.search', function(query, matched) {
+            console.log('search')
+        });
+    }
+});

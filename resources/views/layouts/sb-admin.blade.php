@@ -7,7 +7,26 @@
         @include('inc.side-nav')
         <div id="layoutSidenav_content">
             <main id="app">
-                @yield('content')
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center mt-3">
+                        <h1 class=" ">{{$title ?? 'Title'}}</h1>
+                        <div class="ps-3 ms-3 d-flex">
+                            @yield('control-button')
+                        </div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item"><a href="{{route('sb-admin-tmp.index')}}">Dashboard</a></li>
+                        <li class="breadcrumb-item active">{{$title ?? 'Title'}}</li>
+                    </ol>
+
+                    @include('inc.generic-alert')
+
+                    @yield('content')
+                </div>
             </main>
             @include('inc.footer')
         </div>

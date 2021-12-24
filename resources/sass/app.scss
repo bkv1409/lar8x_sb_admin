@@ -10,3 +10,9 @@
 @import "~startbootstrap-sb-admin/src/scss/styles";
 // import for chart.js 2.8.0
 @import "~chart.js/dist/Chart.css";
+
+img.table-avatar {
+    border-radius: 50%;
+    display: inline;
+    width: 2.5rem;
+}

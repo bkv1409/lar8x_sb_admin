@@ -144,6 +144,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'password' => [
+            'regex' => 'Password must contain at least one number and one special character @$!%*#?& and both uppercase and lowercase letters.'
+        ]
     ],
 
     /*

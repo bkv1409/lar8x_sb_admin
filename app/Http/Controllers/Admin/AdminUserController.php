@@ -76,10 +76,15 @@ class AdminUserController extends Controller
 
         $this->validate($request, $validateArr);
 
-        $this->userRepository->store($request);
-
-        return redirect()->route('users.index')
-            ->with('success', 'User created successfully');
+        try {
+            $this->userRepository->store($request);
+            return redirect()->route('users.index')
+                ->with('success', 'User created successfully');
+        } catch (\Throwable $exception) {
+            Log::error('Has error when create user: '. $exception->getMessage());
+            return redirect()->route('users.index')
+                ->with('success', 'Has error when create user:'. $exception->getMessage());
+        }
     }
 
     /**
@@ -132,18 +137,6 @@ class AdminUserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        /*$this->validate($request, [
-            'name'     => 'required',
-            'email'    => 'required|email|unique:users,email,'.$user->id,
-            'password' => 'same:confirm-password',
-            'roles'    => 'required',
-            'img_link' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
-            'job' => 'nullable|max:100',
-            'bio' => 'nullable|max:255',
-            'skills' => 'nullable|max:255',
-            'experience' => 'nullable|max:255',
-        ]);*/
-
         $validateArr = array_merge(User::$COMMON_VALIDATE_ARRAY, [
             'email'    => 'required|email|unique:users,email,' . $user->id,
         ]);
@@ -189,6 +182,4 @@ class AdminUserController extends Controller
         return redirect()->route('users.index')
             ->with('success', 'User change status successfully');
     }
-
-
 }
