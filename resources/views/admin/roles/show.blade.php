@@ -18,6 +18,14 @@
                         {{ $role->name }}
                     </div>
                     <div class="mb-3">
+                        <strong>Description:</strong>
+                        {{ $role->description }}
+                    </div>
+                    <div class="mb-3">
+                        <strong>Updated At:</strong>
+                        {{ $role->updated_at }}
+                    </div>
+                    <div class="mb-3">
                         <strong>Permissions:</strong>
                         @if(!empty($rolePermissions))
                             @foreach($rolePermissions as $v)

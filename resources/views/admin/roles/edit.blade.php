@@ -16,6 +16,10 @@
                         {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
                     </div>
                     <div class="mb-3">
+                        <strong>Description:</strong>
+                        {!! Form::textarea('description', null, array('placeholder' => 'Description','class' => 'form-control', 'rows' => 3)) !!}
+                    </div>
+                    <div class="mb-3">
                         <strong>Permission:</strong>
                         <br/>
                         @foreach($permission as $value)

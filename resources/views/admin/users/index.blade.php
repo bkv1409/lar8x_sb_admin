@@ -11,23 +11,10 @@
         <div class="card-header">
             <div class="d-flex justify-content-between">
                 <h3><i class="fas fa-table me-1"></i>
-                    Danh sách users</h3>
-                <div>
-                    <form action="{{route('admin.users.index')}}" method="GET" class="input-group input-group-sm">
-                        <input type="text" name="search" class="form-control float-right"
-                               placeholder="Search Name or Email" value="{{$search ?? ''}}">
+                    Danh sách users
+                </h3>
+                @include('inc.admin.search-in-table', ['route' => route('admin.users.index'), 'desc' => 'Search Name or Email'])
 
-                        <div class="input-group-text input-group-sm">
-                            <a class="btn btn-default " href="{{ route('admin.users.index') }}">
-                                <i class="fa fa-recycle"></i>
-                            </a>
-                            <button type="submit" class="btn btn-default">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-
-                    </form>
-                </div>
             </div>
 
         </div>

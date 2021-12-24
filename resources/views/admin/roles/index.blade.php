@@ -14,23 +14,9 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <h3><i class="fas fa-table me-1"></i>
-                            Danh sách roles</h3>
-                        <div>
-                            <form action="{{route('admin.roles.index')}}" method="GET" class="input-group input-group-sm">
-                                <input type="text" name="search" class="form-control float-right"
-                                       placeholder="Search Name or Email" value="{{$search ?? ''}}">
-
-                                <div class="input-group-text input-group-sm">
-                                    <a class="btn btn-default " href="{{ route('admin.roles.index') }}">
-                                        <i class="fa fa-recycle"></i>
-                                    </a>
-                                    <button type="submit" class="btn btn-default">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                </div>
-
-                            </form>
-                        </div>
+                            Danh sách roles
+                        </h3>
+                        @include('inc.admin.search-in-table', ['route' => route('admin.users.index'), 'desc' => 'Search By Name'])
                     </div>
 
                 </div>
@@ -42,6 +28,7 @@
                             <th>No</th>
                             <th>Role ID</th>
                             <th>Name</th>
+                            <th>Description</th>
                             <th width="280px">Action</th>
                         </tr>
                         </thead>
@@ -54,6 +41,7 @@
                                 <td>{{ ++$i }}</td>
                                 <td>{{ $role->id }}</td>
                                 <td>{{ $role->name }}</td>
+                                <td>{{ $role->description }}</td>
                                 <td>
                                     <a class="btn btn-info" href="{{ route('admin.roles.show',$role->id) }}">
                                         <i class="fas fa-folder">

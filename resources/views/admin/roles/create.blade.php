@@ -14,6 +14,12 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="mb-3">
+                <strong>Description:</strong>
+                {!! Form::textarea('description', null, array('placeholder' => 'Description','class' => 'form-control', 'rows' => 3)) !!}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="mb-3">
                 <strong>Permission:</strong>
                 <br/>
                 @foreach($permission as $value)

@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Services\LogService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
 //use Spatie\Permission\Models\Role;
 
@@ -69,7 +68,8 @@ class AdminRoleController extends Controller
             'permission' => 'required',
         ]);
 
-        $role = Role::create(['name' => $request->input('name')]);
+//        $role = Role::create(['name' => $request->input('name')]);
+        $role = Role::create($request->only(['name', 'description']));
         $role->syncPermissions($request->input('permission'));
 
         return redirect()->route('admin.roles.index')
@@ -130,6 +130,7 @@ class AdminRoleController extends Controller
         $name = $request->input('name');
         $permission = $request->input('permission');
         $role->name = $name;
+        $role->description = $request->input('description');
         $role->save();
 
         $role->syncPermissions($permission);

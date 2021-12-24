@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminPermissionController;
 use App\Http\Controllers\Admin\AdminRoleController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\HomeController;
@@ -52,6 +53,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function() {
         Route::get('/users-password/{user}', [AdminUserController::class, 'editPassword'])->name('users.edit-password');
         Route::post('/users-password/{user}', [AdminUserController::class, 'updatePassword'])->name('users.update-password');
         Route::resource('users', AdminUserController::class);
+        Route::resource('permissions', AdminPermissionController::class);
     });
 
 

@@ -4,6 +4,9 @@ namespace App\Models;
 
 
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Permission\Exceptions\RoleAlreadyExists;
+use Spatie\Permission\Guard;
+use Spatie\Permission\PermissionRegistrar;
 
 /**
  * App\Models\Role
@@ -34,8 +37,15 @@ class Role extends \Spatie\Permission\Models\Role
 {
     use LogsActivity;
 
-    protected static $logAttributes = ['id', 'name', 'guard_name'];
+    protected $fillable = ['name', 'guard_name', 'description'];
+
+    protected static $logAttributes = ['id', 'name', 'guard_name', 'description'];
 
     protected static $logOnlyDirty = true;
     protected static $submitEmptyLogs = false;
+    /**
+     * @var mixed
+     */
+    private $description;
+
 }
