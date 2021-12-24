@@ -1,6 +1,6 @@
 @extends('layouts.sb-admin', ['title' => 'Create User'])
 @section('control-button')
-    <a class="btn btn-secondary mr-2" href="{{ route('users.index') }}">
+    <a class="btn btn-secondary mr-2" href="{{ route('admin.users.index') }}">
         <i class="fa fa-backward"></i> Back
     </a>
 @endsection
@@ -12,7 +12,7 @@
 
                 <!-- /.card-header -->
                 <div class="card-body pb-1">
-                    {!! Form::open(array('route' => 'users.store','method'=>'POST', 'enctype' => 'multipart/form-data', 'id' => 'create-form')) !!}
+                    {!! Form::open(array('route' => 'admin.users.store','method'=>'POST', 'enctype' => 'multipart/form-data', 'id' => 'create-form')) !!}
                     <div class="mb-2">
                         <strong>Name:</strong>
                         {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}

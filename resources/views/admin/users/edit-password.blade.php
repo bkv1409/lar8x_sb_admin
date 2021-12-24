@@ -1,6 +1,6 @@
 @extends('layouts.sb-admin', ['title' => 'Edit Password'])
 @section('control-button')
-    <a class="btn btn-secondary mr-2" href="{{ route('users.index') }}">
+    <a class="btn btn-secondary mr-2" href="{{ route('admin.users.index') }}">
         <i class="fa fa-backward"></i> Back
     </a>
 @endsection

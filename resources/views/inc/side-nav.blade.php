@@ -7,11 +7,11 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Dashboard
                 </a>
-                <a class="nav-link" href="{{route('users.index')}}">
+                <a class="nav-link" href="{{route('admin.users.index')}}">
                     <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
                     Users
                 </a>
-                <a class="nav-link" href="{{route('roles.index')}}">
+                <a class="nav-link" href="{{route('admin.roles.index')}}">
                     <div class="sb-nav-link-icon"><i class="fas fa-ruler"></i></div>
                     Roles
                 </a>

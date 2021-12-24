@@ -1,7 +1,7 @@
 @extends('layouts.sb-admin', ['title' => 'Users Management'])
 {{--@section('breadcrumbs', Breadcrumbs::render('dashboard.home-v1'))--}}
 @section('control-button')
-    <a class="btn btn-success" href="{{ route('users.create') }}">
+    <a class="btn btn-success" href="{{ route('admin.users.create') }}">
         <i class="fas fa-plus"></i> Create New User
     </a>
 @endsection
@@ -13,12 +13,12 @@
                 <h3><i class="fas fa-table me-1"></i>
                     Danh sách users</h3>
                 <div>
-                    <form action="{{route('users.index')}}" method="GET" class="input-group input-group-sm">
+                    <form action="{{route('admin.users.index')}}" method="GET" class="input-group input-group-sm">
                         <input type="text" name="search" class="form-control float-right"
                                placeholder="Search Name or Email" value="{{$search ?? ''}}">
 
                         <div class="input-group-text input-group-sm">
-                            <a class="btn btn-default " href="{{ route('users.index') }}">
+                            <a class="btn btn-default " href="{{ route('admin.users.index') }}">
                                 <i class="fa fa-recycle"></i>
                             </a>
                             <button type="submit" class="btn btn-default">
@@ -79,17 +79,17 @@
                             @endif
                         </td>
                         <td class="project-actions text-right">
-                            <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">
+                            <a class="btn btn-info" href="{{ route('admin.users.show',$user->id) }}">
                                 <i class="fas fa-folder">
                                 </i>
                                 Show
                             </a>
-                            <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">
+                            <a class="btn btn-primary" href="{{ route('admin.users.edit',$user->id) }}">
                                 <i class="fas fa-pencil-alt">
                                 </i>
                                 Edit
                             </a>
-                            {!! Form::open(['method' => 'DELETE','route' => ['users.destroy', $user->id],'style'=>'display:inline']) !!}
+                            {!! Form::open(['method' => 'DELETE','route' => ['admin.users.destroy', $user->id],'style'=>'display:inline']) !!}
                             {{--                                        {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}--}}
                             <button class="btn btn-warning" type="submit" onclick="return confirm('Bạn có chắc muốn đổi trạng thái cho user này?')">
                                 <i class="fas fa-recycle">

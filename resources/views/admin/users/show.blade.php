@@ -1,9 +1,9 @@
 @extends('layouts.sb-admin', ['title' => 'Show User'])
 @section('control-button')
-    <a class="btn btn-secondary " href="{{ route('users.index') }}">
+    <a class="btn btn-secondary " href="{{ route('admin.users.index') }}">
         <i class="fa fa-backward"></i> Back
     </a>
-    <a class="btn btn-primary ms-2" href="{{ route('users.edit', ['user' => $user]) }}">
+    <a class="btn btn-primary ms-2" href="{{ route('admin.users.edit', ['user' => $user]) }}">
         <i class="fas fa-pencil-alt"></i> Edit
     </a>
 @endsection

@@ -47,10 +47,16 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function() {
         return redirect()->route('login');
     })->name('admin.redirect');
 
+    Route::name('admin.')->group(function () {
+        Route::resource('roles', AdminRoleController::class);
+        Route::get('/users-password/{user}', [AdminUserController::class, 'editPassword'])->name('users.edit-password');
+        Route::post('/users-password/{user}', [AdminUserController::class, 'updatePassword'])->name('users.update-password');
+        Route::resource('users', AdminUserController::class);
+    });
+
+
+
 
 });
 
-Route::resource('roles', AdminRoleController::class);
-Route::get('/users-password/{user}', [AdminUserController::class, 'editPassword'])->name('users.edit-password');
-Route::post('/users-password/{user}', [AdminUserController::class, 'updatePassword'])->name('users.update-password');
-Route::resource('users', AdminUserController::class);
+

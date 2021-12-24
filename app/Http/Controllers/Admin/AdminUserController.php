@@ -47,7 +47,7 @@ class AdminUserController extends Controller
             $query->orWhere('email', 'like', '%' . $search . '%');
         }
         $data = $query->paginate(config('constants.PAGINATION.BACKEND'));
-        return view('users.index', compact('data', 'search'));
+        return view('admin.users.index', compact('data', 'search'));
     }
 
     /**
@@ -58,7 +58,7 @@ class AdminUserController extends Controller
     public function create()
     {
         $roles = Role::pluck('name', 'name')->all();
-        return view('users.create', compact('roles'));
+        return view('admin.users.create', compact('roles'));
     }
 
     /**
@@ -78,11 +78,11 @@ class AdminUserController extends Controller
 
         try {
             $this->userRepository->store($request);
-            return redirect()->route('users.index')
+            return redirect()->route('admin.users.index')
                 ->with('success', 'User created successfully');
         } catch (\Throwable $exception) {
             Log::error('Has error when create user: '. $exception->getMessage());
-            return redirect()->route('users.index')
+            return redirect()->route('admin.users.index')
                 ->with('success', 'Has error when create user:'. $exception->getMessage());
         }
     }
@@ -98,7 +98,7 @@ class AdminUserController extends Controller
     {
 //        $user = User::find($id);
         $userProfile = $user->userProfile;
-        return view('users.show', compact('user', 'userProfile'));
+        return view('admin.users.show', compact('user', 'userProfile'));
     }
 
     /**
@@ -114,7 +114,7 @@ class AdminUserController extends Controller
         $userRole = $user->roles->pluck('name', 'name')->all();
         $userProfile = $user->userProfile;
 
-        return view('users.edit', compact('user', 'roles', 'userRole', 'userProfile'));
+        return view('admin.users.edit', compact('user', 'roles', 'userRole', 'userProfile'));
     }
 
     /**
@@ -124,7 +124,7 @@ class AdminUserController extends Controller
      */
     public function editPassword(User $user, Request $request)
     {
-        return view('users.edit-password', compact('user'));
+        return view('admin.users.edit-password', compact('user'));
     }
 
     /**
@@ -144,7 +144,7 @@ class AdminUserController extends Controller
 
         $this->userRepository->update($user, $request);
 
-        return redirect()->route('users.index')
+        return redirect()->route('admin.users.index')
             ->with('success', 'User updated successfully');
     }
 
@@ -160,7 +160,7 @@ class AdminUserController extends Controller
 
         $this->userRepository->update($user, $request, false);
 
-        return redirect()->route('users.index')
+        return redirect()->route('admin.users.index')
             ->with('success', 'User updated successfully');
     }
 
@@ -174,12 +174,12 @@ class AdminUserController extends Controller
     public function destroy(User $user)
     {
         if ($user->id === self::SUPER_ADMIN_USER_ID) {
-            return redirect()->route('users.index')
+            return redirect()->route('admin.users.index')
                 ->with('failed', 'Cannot disable SUPER ADMIN USER ROOT!');
         }
         $user->status = !$user->status ? 1 : 0;
         $user->save();
-        return redirect()->route('users.index')
+        return redirect()->route('admin.users.index')
             ->with('success', 'User change status successfully');
     }
 }

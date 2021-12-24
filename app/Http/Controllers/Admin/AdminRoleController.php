@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Role;
-use App\Services\LogsService;
+use App\Services\LogService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
@@ -41,7 +41,7 @@ class AdminRoleController extends Controller
         }
         $roles = $query->paginate(config('constants.PAGINATION.BACKEND'));
         $title = 'Role Management';
-        return view('roles.index', compact('roles', 'title', 'search'));
+        return view('admin.roles.index', compact('roles', 'title', 'search'));
     }
 
     /**
@@ -52,7 +52,7 @@ class AdminRoleController extends Controller
     public function create()
     {
         $permission = Permission::get();
-        return view('roles.create', compact('permission'));
+        return view('admin.roles.create', compact('permission'));
     }
 
     /**
@@ -72,7 +72,7 @@ class AdminRoleController extends Controller
         $role = Role::create(['name' => $request->input('name')]);
         $role->syncPermissions($request->input('permission'));
 
-        return redirect()->route('roles.index')
+        return redirect()->route('admin.roles.index')
             ->with('success', 'Role created successfully');
     }
 
@@ -92,7 +92,7 @@ class AdminRoleController extends Controller
             ->get();*/
         $rolePermissions = $role->getAllPermissions();
 
-        return view('roles.show', compact('role', 'rolePermissions'));
+        return view('admin.roles.show', compact('role', 'rolePermissions'));
     }
 
     /**
@@ -110,7 +110,7 @@ class AdminRoleController extends Controller
             ->all();*/
         $rolePermissions = $role->getAllPermissions()->pluck('id', 'id')->toArray();
 
-        return view('roles.edit', compact('role', 'permission', 'rolePermissions'));
+        return view('admin.roles.edit', compact('role', 'permission', 'rolePermissions'));
     }
 
     /**
@@ -133,8 +133,8 @@ class AdminRoleController extends Controller
         $role->save();
 
         $role->syncPermissions($permission);
-        LogsService::logActivity(\Auth::user(), 'set list permission '. json_encode($permission). ' to role '. $name, $role);
-        return redirect()->route('roles.index')
+        LogService::logActivity(\Auth::user(), 'set list permission '. json_encode($permission). ' to role '. $name, $role);
+        return redirect()->route('admin.roles.index')
             ->with('success', 'Role updated successfully');
     }
 
@@ -148,11 +148,11 @@ class AdminRoleController extends Controller
     public function destroy(Role $role)
     {
         if ($role->id === self::SUPER_ADMIN_ROLE_ID || $role->name === self::SUPER_ADMIN_ROLE_NAME) {
-            return redirect()->route('roles.index')
+            return redirect()->route('admin.roles.index')
                 ->with('failed', 'Cannot delete SUPER ADMIN Role!');
         }
         $role->delete();
-        return redirect()->route('roles.index')
+        return redirect()->route('admin.roles.index')
             ->with('success', 'Role deleted successfully');
     }
 }

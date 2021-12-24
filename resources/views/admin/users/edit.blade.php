@@ -1,10 +1,10 @@
 @extends('layouts.sb-admin', ['title' => 'Edit User'])
 @section('control-button')
-    <a class="btn btn-secondary " href="{{ route('users.index') }}">
+    <a class="btn btn-secondary " href="{{ route('admin.users.index') }}">
         <i class="fa fa-backward"></i> Back
     </a>
 
-    <a class="btn btn-primary ms-2" href="{{ route('users.edit-password', $user) }}">
+    <a class="btn btn-primary ms-2" href="{{ route('admin.users.edit-password', $user) }}">
         <i class="fa fa-pen"></i> Edit Password
     </a>
 @endsection
@@ -14,7 +14,7 @@
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="card card-primary card-outline">
                 <div class="card-body pb-1">
-                    {!! Form::model($user, ['method' => 'PATCH','route' => ['users.update', $user->id], 'enctype' => 'multipart/form-data', 'id' => 'edit-form']) !!}
+                    {!! Form::model($user, ['method' => 'PATCH','route' => ['admin.users.update', $user->id], 'enctype' => 'multipart/form-data', 'id' => 'edit-form']) !!}
                     <div class="mb-2">
                         <strong>Name:</strong>
                         {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
@@ -34,7 +34,7 @@
                     <div class="mb-2">
                         <strong>Role:</strong>
                         {{--                    {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control','multiple')) !!}--}}
-                        {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control')) !!}
+                        {!! Form::select('roles[]', $roles, $userRole, array('class' => 'form-control')) !!}
                     </div>
 
 
