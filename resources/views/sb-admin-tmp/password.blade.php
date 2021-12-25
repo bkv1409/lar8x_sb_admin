@@ -18,13 +18,13 @@
                                             <label for="inputEmail">Email address</label>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                            <a class="small" href="html/login.html">Return to login</a>
-                                            <a class="btn btn-primary" href="html/login.html">Reset Password</a>
+                                            <a class="small" href="{{route('sb-admin-tmp.login')}}">Return to login</a>
+                                            <a class="btn btn-primary" href="{{route('sb-admin-tmp.login')}}">Reset Password</a>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="card-footer text-center py-3">
-                                    <div class="small"><a href="html/register.html">Need an account? Sign up!</a></div>
+                                    <div class="small"><a href="{{route('sb-admin-tmp.register')}}">Need an account? Sign up!</a></div>
                                 </div>
                             </div>
                         </div>
@@ -33,18 +33,6 @@
             </main>
         </div>
         <div id="layoutAuthentication_footer">
-<!--            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid px-4">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Your Website 2021</div>
-                        <div>
-                            <a href="#">Privacy Policy</a>
-                            &middot;
-                            <a href="#">Terms &amp; Conditions</a>
-                        </div>
-                    </div>
-                </div>
-            </footer>-->
             @include('inc.footer')
         </div>
     </div>
