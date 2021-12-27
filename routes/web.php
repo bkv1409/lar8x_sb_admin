@@ -25,7 +25,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/home2', [HomeController::class, 'index2'])->name('home2');
+Route::get('/home-vue', [HomeController::class, 'indexVue'])->name('home-vue');
 
 //Auth::routes();
 
