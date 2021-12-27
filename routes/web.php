@@ -27,7 +27,7 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/home2', [HomeController::class, 'index2'])->name('home2');
 
-Auth::routes();
+//Auth::routes();
 
 Route::group(['prefix' => '/sb-admin-tmp'], function () {
     Route::get('/', [SBAdminController::class, 'index'])->name('sb-admin-tmp.index');

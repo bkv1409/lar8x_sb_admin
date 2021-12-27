@@ -18,7 +18,7 @@
                         <div></div>
                     </div>
 
-                    <ol class="breadcrumb mb-4">
+                    <ol class="breadcrumb mb-3">
                         <li class="breadcrumb-item"><a href="{{route('sb-admin-tmp.index')}}">Dashboard</a></li>
                         <li class="breadcrumb-item active">{{$title ?? 'Title'}}</li>
                     </ol>

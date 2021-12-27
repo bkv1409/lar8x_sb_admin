@@ -75,7 +75,14 @@
         </div>
         <div class="sb-sidenav-footer">
             <div class="small">Logged in as:</div>
-            Start Bootstrap
+            <div class="mt-2">
+                <img class="table-avatar "
+                     src="{{ storage_url(data_get(auth()->user(), 'userProfile.img_link', ''))}}"
+                     onerror="this.onerror=null;this.src='{{default_avatar()}}';"
+                     alt="User Image">
+                {{auth()->user()->name ?? 'Start Bootstrap'}}
+            </div>
+
         </div>
     </nav>
 </div>
