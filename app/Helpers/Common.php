@@ -214,30 +214,7 @@ class Common
         return str_replace("\\", "/", base_path()) . $url;
     }
 
-    /**
-     * formatDateExcel
-     *
-     * @param $fieldDate
-     * @param string $format
-     * @return Carbon|string
-     */
-    public static function formatDateExcel($fieldDate, $format = "d-m-Y H:i:s")
-    {
-        if (empty($fieldDate)) {
-            return null;
-        }
 
-        if (is_string($fieldDate)) {
-            return $fieldDate;
-        }
-
-        if (is_numeric($fieldDate)) {
-            $unitDate = ($fieldDate - 25569) * 86400;
-            return self::formatDate(gmdate($format, (int)$unitDate), 'Y-m-d');
-        } else {
-            exit('Lỗi DOB không đúng định dạng');
-        }
-    }
 
 
     /**

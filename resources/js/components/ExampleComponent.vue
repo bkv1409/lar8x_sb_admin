@@ -6,7 +6,7 @@
                     <div class="card-header">Example Component</div>
 
                     <div class="card-body">
-                        I'm an example component.
+                        <todo-list></todo-list>
                     </div>
                 </div>
             </div>
@@ -15,7 +15,14 @@
 </template>
 
 <script>
+
+    import TodoList from "./TodoList";
+
     export default {
+        name: "example-component",
+        components: {
+          TodoList,
+        },
         mounted() {
             console.log('Component mounted.')
         }
