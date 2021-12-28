@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminActivityLogController;
 use App\Http\Controllers\Admin\AdminPermissionController;
 use App\Http\Controllers\Admin\AdminRoleController;
 use App\Http\Controllers\Admin\AdminUserController;
@@ -56,6 +57,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function() {
         Route::resource('permissions', AdminPermissionController::class);
     });
 
+    Route::get('/activity-logs', [AdminActivityLogController::class, 'index'])->name('admin.activity-logs.index');
 
 
 

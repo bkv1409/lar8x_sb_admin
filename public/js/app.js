@@ -5313,8 +5313,7 @@ var app = new Vue({
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 
 try {
-  __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.esm.js"); // require('datatables')
-
+  window.bootstrap = __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.esm.js"); // require('datatables')
 
   window.simpleDatatables = __webpack_require__(/*! simple-datatables */ "./node_modules/simple-datatables/src/index.js"); // chart.js ver 2.8.0
 
@@ -5370,6 +5369,42 @@ window.addEventListener('DOMContentLoaded', function (event) {
     });
     userDataTable.on('datatable.search', function (query, matched) {
       console.log('search');
+    });
+  }
+
+  var detailModalEl = document.getElementById('detailModalId');
+  var detailButtonCtlList = document.getElementsByClassName('detail-ctl');
+  var detailButtonCtl = detailButtonCtlList.length > 0 ? detailButtonCtlList[0] : null;
+
+  if (detailButtonCtl) {
+    detailButtonCtl.addEventListener('click', function () {
+      if (detailModalEl) {
+        var detailModal = new bootstrap.Modal(detailModalEl);
+        detailModal.show();
+      }
+
+      console.log(this.dataset);
+      document.getElementById("log_id").value = this.dataset.logId;
+      var propertiesObjStr = this.dataset.logProperties;
+      var propertiesObj = JSON.parse(propertiesObjStr);
+      console.log(propertiesObj);
+      console.log(this.dataset.logId);
+
+      if ('attributes' in propertiesObj) {
+        document.getElementById("log_properties_attr").value = JSON.stringify(propertiesObj.attributes);
+      } else {
+        document.getElementById("log_properties_attr").value = '';
+      }
+
+      if ('old' in propertiesObj) {
+        document.getElementById("log_properties_old").value = JSON.stringify(propertiesObj.old);
+      } else {
+        document.getElementById("log_properties_old").value = '';
+      }
+
+      document.getElementById("log_description").value = this.dataset.logDescription;
+      document.getElementById("log_created_at").value = this.dataset.logCreatedAt;
+      document.getElementById("log_updated_at").value = this.dataset.logUpdatedAt;
     });
   }
 });

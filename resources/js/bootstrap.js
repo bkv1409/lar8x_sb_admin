@@ -1,7 +1,7 @@
 window._ = require('lodash');
 
 try {
-    require('bootstrap');
+    window.bootstrap = require('bootstrap');
 
     // require('datatables')
     window.simpleDatatables = require('simple-datatables')
@@ -64,4 +64,39 @@ window.addEventListener('DOMContentLoaded', event => {
             console.log('search')
         });
     }
+
+    let detailModalEl = document.getElementById('detailModalId')
+
+    let detailButtonCtlList = document.getElementsByClassName('detail-ctl')
+    let detailButtonCtl = detailButtonCtlList.length > 0 ? detailButtonCtlList[0] : null;
+    if (detailButtonCtl) {
+        detailButtonCtl.addEventListener('click', function () {
+            if (detailModalEl) {
+                let detailModal = new bootstrap.Modal(detailModalEl)
+                detailModal.show()
+            }
+            console.log(this.dataset)
+            document.getElementById("log_id").value = this.dataset.logId
+            let propertiesObjStr = this.dataset.logProperties
+            let propertiesObj = JSON.parse(propertiesObjStr)
+            console.log(propertiesObj)
+            console.log(this.dataset.logId)
+            if ('attributes' in propertiesObj) {
+                document.getElementById("log_properties_attr").value = JSON.stringify(propertiesObj.attributes)
+            } else {
+                document.getElementById("log_properties_attr").value = ''
+            }
+
+            if ('old' in propertiesObj) {
+                document.getElementById("log_properties_old").value = JSON.stringify(propertiesObj.old)
+            } else {
+                document.getElementById("log_properties_old").value = ''
+            }
+            document.getElementById("log_description").value = this.dataset.logDescription
+            document.getElementById("log_created_at").value = this.dataset.logCreatedAt
+            document.getElementById("log_updated_at").value = this.dataset.logUpdatedAt
+        })
+    }
+
+
 });

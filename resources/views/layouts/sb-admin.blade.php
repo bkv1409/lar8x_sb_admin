@@ -1,7 +1,7 @@
 @extends('layouts.sb-master')
 
 @section('body')
-    <body class="{{empty($staticNav) ? 'sb-nav-fixed' : ''}}">
+<body class="{{empty($staticNav) ? 'sb-nav-fixed' : ''}}">
     @include('inc.navbar')
     <div id="layoutSidenav">
         @include('inc.side-nav')
@@ -42,6 +42,6 @@
     {{--        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>--}}
     <script src="{{asset('js/app.js')}}"></script>
     <script src="{{asset('js/demo.js')}}"></script>
-
-    </body>
+    @stack('js')
+</body>
 @endsection
