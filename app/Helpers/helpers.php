@@ -27,29 +27,6 @@ if (! function_exists('plural_from_model')) {
 }
 
 
-if (! function_exists('asset_front')) {
-    function asset_front($url, $useMix = false)
-    {
-        return Common::concatUrlStr($url, 'APP_DOMAIN', $useMix);
-    }
-}
-
-if (! function_exists('asset_front_route')) {
-    function asset_front_route($name, $queryStr = '', $tag = '')
-    {
-//        return route($name) . $queryStr . ($tag ? "#$tag" : '');
-        return Common::assetFrontRoute($name, $queryStr, $tag);
-    }
-}
-
-
-if (! function_exists('asset_admin')) {
-    function asset_admin($url, $useMix = false)
-    {
-        return Common::concatUrlStr($url, 'APP_DOMAIN_ADMIN', $useMix);
-    }
-}
-
 if (! function_exists('get_first_content')) {
     function get_first_content($val, $firstCharacter = 20)
     {
@@ -105,13 +82,6 @@ if (! function_exists('format_date')) {
     }
 }
 
-if (! function_exists('format_currency')) {
-    function format_currency($val, $isFull = false)
-    {
-        return Common::formatCurrency($val, $isFull);
-    }
-}
-
 if (! function_exists('positive_val')) {
     function positive_val($val)
     {
@@ -119,12 +89,6 @@ if (! function_exists('positive_val')) {
     }
 }
 
-if (! function_exists('get_domain')) {
-    function get_domain($url)
-    {
-        return Common::getDomain($url);
-    }
-}
 
 if (! function_exists('storage_url')) {
     function storage_url($url)
@@ -147,12 +111,6 @@ if (! function_exists('print_season')) {
     }
 }
 
-if (! function_exists('compile_message')) {
-    function compile_message($msg, $play, $maxPlay)
-    {
-        return Common::compileMessage($msg, $play, $maxPlay);
-    }
-}
 
 if (! function_exists('print_date')) {
     function print_date($date, $format = 'd/m')

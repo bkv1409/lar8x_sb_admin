@@ -41,36 +41,6 @@ class Common
             : $suffix . ' ' . substr($string, (0 - $limit));
     }
 
-    /**
-     * getWeekDates
-     * Lấy thông tin tuần, ngày đầu tuần, ngày cuối tuần
-     *
-     * @param string $startDate
-     * @param string $endDate
-     * @return array
-     */
-    public static function getWeekDates($startDate = '', $endDate = '')
-    {
-        $weeks = array();
-
-        // Nếu dãi ngày hợp lệ
-        if (!empty($startDate) && !empty($endDate)) {
-            $startTime = strtotime($startDate);
-            $endTime = strtotime($endDate);
-            $date = new DateTime();
-            $i = 0;
-            while ($startTime <= $endTime) {
-                $weeks[$i]['week'] = date('W', $startTime);
-                $weeks[$i]['year'] = date('Y', $startTime);
-                $date->setISODate($weeks[$i]['year'], $weeks[$i]['week']);
-                $weeks[$i]['Monday'] = $date->format('Y-m-d');
-                $weeks[$i]['Sunday'] = date('Y-m-d', strtotime($weeks[$i]['Monday'] . "+5 days"));
-                $startTime += strtotime('+1 week', 0);
-                $i++;
-            }
-        }
-        return $weeks;
-    }
 
     /**
      * today
@@ -84,46 +54,7 @@ class Common
         return Carbon::today()->toDateString();
     }
 
-    /**
-     * addDay
-     *
-     * @param  int  $day
-     * @param  string  $date
-     * @return string
-     */
-    public static function addDay($day = 1, $date = '')
-    {
-        if (empty($date)) {
-            return Carbon::now()->addDay($day);
-        }
 
-        $date = str_replace('/', '-', $date);
-        return Carbon::parse($date)->addDay($day);
-    }
-
-    /**
-     * addMinutes
-     * Thêm số phút
-     *
-     * @param  int  $minutes
-     * @param  string  $date
-     * @return string
-     */
-    public static function addMinutes($minutes = 1, $date = '')
-    {
-        if (empty($date)) {
-            return Carbon::now()->addMinutes($minutes);
-        }
-
-        $date = str_replace('/', '-', $date);
-        return Carbon::parse($date)->addMinutes($minutes);
-    }
-
-    public static function dateWithEndOfTime($date = '')
-    {
-        $dateObj = empty($date) ? Carbon::now() : Carbon::parse($date);
-        return $dateObj->addDay()->subSecond()->toDateTimeLocalString();
-    }
 
     /**
      * compareDate
@@ -169,24 +100,6 @@ class Common
         return Carbon::parse($date)->format($format);
     }
 
-    /**
-     * formatCurrency
-     *
-     * @param $currency
-     * @param bool $isFull
-     * @return string
-     */
-    public static function formatCurrency($currency, $isFull = false)
-    {
-        $temp = $isFull ? self::CURRENCY_SYMBOL_SHORT : '';
-        $currency = $currency < 0 ? 0 : $currency;
-        return number_format(
-                $currency,
-                config('constants.CURRENCY_PRECISION'),
-                '.',
-                '.'
-            ) . $temp;
-    }
 
     /**
      * percent
@@ -200,30 +113,6 @@ class Common
     {
         if ($total <= 0) return false;
         return round(($num / $total) * 100, $precision) . '%';
-    }
-
-
-    /**
-     * fullPath
-     *
-     * @param string $url
-     * @return string
-     */
-    public static function fullPath($url = '')
-    {
-        return str_replace("\\", "/", base_path()) . $url;
-    }
-
-
-
-
-    /**
-     * @param $value
-     * @return string
-     */
-    public static function paddingZero($value)
-    {
-        return str_pad($value, 2, '0', STR_PAD_LEFT);
     }
 
     /**
@@ -256,23 +145,6 @@ class Common
         return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $ua);
     }
 
-    /**
-     * @param $giftTemplates
-     * @param  int  $groupCount
-     * @return array
-     */
-    public static function groupRowColArrayOrCollection($giftTemplates, $groupCount = 3)
-    {
-        $giftTemplateArr = [];
-        $i = 0;
-        $j = 0;
-        foreach ($giftTemplates as $index => $giftTemplate) {
-            $giftTemplateArr[$i] [$index] = $giftTemplate;
-            if ($j > 0 && $j % $groupCount == ($groupCount - 1)) $i++;
-            $j++;
-        }
-        return $giftTemplateArr;
-    }
 
     /**
      * @param $query
@@ -341,81 +213,7 @@ class Common
         return compact('startDate', 'endDate');
     }
 
-    /**
-     * @param $url
-     * @param  string  $envDomainKey
-     * @param  bool  $useMix
-     * @return string
-     * @throws \Exception
-     */
-    public static function concatUrlStr($url, $envDomainKey = 'APP_DOMAIN', $useMix = true)
-    {
-//        $useFixUrl = env('APP_USE_FIX_URL', false);
-        $useFixUrl = config('appdomain.USE_FIX_URL');
-//        $domain = env($envDomainKey);
-        $domain = config("appdomain.$envDomainKey");
-        $url = $useMix ? mix($url) : $url;
-        return $useFixUrl && $domain ? self::mergeDomain($domain, $url) : asset($url);
-    }
 
-    /**
-     * @param $domain
-     * @param $url
-     * @param bool $useJoinPath
-     * @return string
-     */
-    public static function mergeDomain($domain, $url, $useJoinPath = true)
-    {
-        if ($useJoinPath) return self::joinPaths($domain, $url);
-
-        if (strpos($url, '/') === 0 && substr($domain, -1) === '/') {
-            return $domain . substr($url, 1);
-        } elseif (strpos($url, '/') !== 0 && substr($domain, -1) !== '/') {
-            return "$domain/$url";
-        }
-        return $domain . $url;
-    }
-
-    /**
-     * @param $url
-     * @return string
-     */
-    public static function removeDomain($url)
-    {
-        $parseUrl = parse_url($url);
-        return ($parseUrl['path'] ?? '')
-            . (isset($parseUrl['query']) ? ('?' . $parseUrl['query']) : '')
-            . (isset($parseUrl['fragment']) ? ('#' . $parseUrl['fragment']) : '');
-    }
-
-    /**
-     * @param $url
-     * @return string
-     */
-    public static function getDomain($url)
-    {
-        $parseUrl = parse_url($url);
-        return $parseUrl['host'] ?? '';
-    }
-
-    /**
-     * @param $name
-     * @param string $queryStr
-     * @param string $tag
-     * @return string
-     */
-    public static function assetFrontRoute($name, $queryStr = '', $tag = '')
-    {
-        $finalUrl = route($name) . $queryStr . ($tag ? "#$tag" : '');
-//        $useFixUrl = env('APP_USE_FIX_URL', false);
-        $useFixUrl = config('appdomain.USE_FIX_URL');
-//        $domain = env('APP_DOMAIN');
-        $domain = config('appdomain.APP_DOMAIN');
-        if ($useFixUrl && $domain) {
-            return self::mergeDomain($domain, self::removeDomain($finalUrl));
-        }
-        return $finalUrl;
-    }
 
     /**
      * @param $val
@@ -436,23 +234,6 @@ class Common
     public static function storageUrl($url)
     {
         return Storage::url($url);
-    }
-
-    /**
-     * join path with input array or arguments
-     * @return string
-     */
-    public static function joinPaths()
-    {
-        $args = func_get_args();
-        $paths = array();
-        foreach ($args as $arg) {
-            $paths = array_merge($paths, (array)$arg);
-        }
-
-        $paths = array_map(function ($p) { return trim($p, '/'); }, $paths);
-        $paths = array_filter($paths);
-        return implode('/', $paths);
     }
 
     public static function splitWithCommonDelimiter($val)
@@ -526,33 +307,12 @@ class Common
         return empty($val) ? 0 : 1;
     }
 
-    public static function printSeason($season, $isShort = false)
-    {
-        if ($isShort) return "$season->name (ID: $season->id ~ ".self::formatDate($season->start_time, 'm/d')." - ".self::formatDate($season->end_time, 'm/d').")";
-        return "$season->name (ID: $season->id ~ from $season->start_time to $season->end_time)";
-    }
-
-    public static function printSeasonVeryShort($season)
-    {
-        return $season->name." ( ".Carbon::parse($season->start_time)->format('m/d')." - ".Carbon::parse($season->end_time)->format('m/d')." )";
-    }
 
     public static function getOnlyClassName($namespace)
     {
         return substr(strrchr($namespace, "\\"), 1);
     }
 
-
-    public static function compileMessage($message, $play, $max_play, $newLineSupport = true)
-    {
-        try {
-            $message = $newLineSupport ? nl2br(trim($message)) : $message;
-            return CustomBladeCompiler::render($message, compact('play', 'max_play'));
-        } catch (\Throwable $exception) {
-            Log::warning('Compile Blade Ex: ' . $exception->getMessage());
-        }
-        return false;
-    }
 
     /**
      * parse string to Carbon object
