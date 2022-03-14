@@ -3,6 +3,7 @@ window._ = require('lodash');
 try {
     window.bootstrap = require('bootstrap');
 
+    window.$ = window.jQuery = require('jquery');
     // require('datatables')
     window.simpleDatatables = require('simple-datatables')
     // chart.js ver 2.8.0

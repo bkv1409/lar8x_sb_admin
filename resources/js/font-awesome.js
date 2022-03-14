@@ -1,2 +1,4 @@
 require('@fortawesome/fontawesome-free/js/all')
-window.Chart = require('chart.js')
+// window.Chart = require('chart.js')
+css
+js

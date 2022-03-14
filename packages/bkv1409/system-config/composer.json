@@ -1,0 +1,43 @@
+{
+    "name": "bkv1409/system-config",
+    "description": "Use system config for database and config file",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "BKV1409",
+            "email": "bkv1409@gmail.com",
+            "homepage": "http://author.com"
+        }
+    ],
+    "homepage": "https://github.com/bkv1409/system-config",
+    "keywords": ["Laravel", "SystemConfig"],
+    "require": {
+        "illuminate/support": "~8",
+        "spatie/laravel-activitylog": "^3.17",
+        "spatie/laravel-permission": "^5.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~8.0",
+        "orchestra/testbench": "~6.24.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bkv1409\\SystemConfig\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Bkv1409\\SystemConfig\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Bkv1409\\SystemConfig\\SystemConfigServiceProvider"
+            ],
+            "aliases": {
+                "SystemConfig": "Bkv1409\\SystemConfig\\Facades\\SystemConfig"
+            }
+        }
+    }
+}
